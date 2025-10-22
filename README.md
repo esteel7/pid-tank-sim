@@ -1,12 +1,50 @@
 # Simulador PID de Tanque (Web)
 
-Proyecto base, modular y extensible para simulaciones de control en el navegador.
+Simulador interactivo de nivel en un estanque con **bomba** (caudal de entrada), **válvula de descarga** y **controlador PID**. Funciona 100% en el navegador (React + TypeScript + Vite). Ideal para docencia de control de procesos: modo manual (corriente de bomba) y modo automático (PID), gráficas en tiempo real y exportación CSV.
+
+**Demo (GitHub Pages):** https://esteel7.github.io/pid-tank-sim/
+
+---
+
+## Características
+
+- Diagrama animado del **tanque** (nivel sube/baja) y estado **BOMBA ON/OFF**
+- **Dos modos de operación**:
+  - Manual: slider de **corriente** a la bomba
+  - Automático (PID): entradas para **Kp, Ki, Kd** y **setpoint**
+- Gráficas en tiempo real:
+  - **Señal de control** (corriente i(t))
+  - **Variable de proceso** (nivel h(t)) + setpoint
+- **Exportar CSV** (tiempo, corriente, nivel, etc.)
+- Arquitectura **modular**: lógica en `src/core/`, UI en `src/components/`, loop en `src/hooks/`
+
+---
 
 ## Modelo
 
-- Planta: `dh/dt = (Kb·i - h/R)/A` con `q_out = h/R` e `i` saturada en `[iMin, iMax]`.
-- Control: PID con anti-windup por clamping.
-- Modos: Manual (corriente a la bomba) y Automático (PID).
+**Dinámica del nivel** (tanque de área \(A\), válvula de descarga con constante \(R\), bomba con constante \(K_b\)):
+
+\[
+\frac{dh}{dt} = \frac{q_{\text{in}} - q_{\text{out}}}{A},\qquad
+q_{\text{in}} = K_b \, i,\qquad
+q_{\text{out}} = \frac{h}{R}
+\]
+
+donde:
+- \(h\) = nivel del líquido [m]  
+- \(i\) = corriente de la bomba [A] (con **saturación** \(i \in [i_{\min},\, i_{\max}]\))
+
+**Controlador PID** (con anti-*windup* por *clamping*):
+
+\[
+u(t) = K_p\, e(t) + K_i \!\int e(t)\, dt + K_d\, \frac{de(t)}{dt},
+\qquad e(t) = \text{SP} - h(t)
+\]
+
+En modo **PID**, la corriente aplicada es \(i(t) = \text{sat}(u(t))\).  
+La simulación es discreta con paso \(\Delta t\) y **Euler** semi-implícito para la planta.
+
+---
 
 ## Estructura
 ```
