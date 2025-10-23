@@ -55,7 +55,7 @@ El controlador incluye **anti-windup** simple mediante *clamping* cuando se alca
 ---
 
 ## Estructura del proyecto
-
+```graphql
 src/
   core/
     types.ts        # Tipos e interfaces comunes
@@ -74,7 +74,7 @@ App.tsx             # Composición principal de la UI
 main.tsx            # Punto de entrada
 styles.css          # Estilos base
 vite.config.ts      # Configuración del entorno
-
+```
 ---
 
 ## Desarrollo local
@@ -97,10 +97,10 @@ Abrir en el navegador:
 ---
 
 ## Build de producción
-
+```bash
 npm run build
 npm run preview
-
+```
 Los archivos listos para publicar quedan en la carpeta `dist/`.
 
 ---
