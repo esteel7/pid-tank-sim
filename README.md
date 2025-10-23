@@ -135,8 +135,6 @@ Para contribuir:
 2. Clona tu fork y crea una rama nueva.
 3. Realiza tus cambios y verifica que `npm run dev` funcione.
 4. Envía un **Pull Request** hacia la rama principal del repositorio original.
-
-Gracias por contribuir 💡
 ---
 ## Licencia
 
