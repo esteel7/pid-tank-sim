@@ -27,28 +27,23 @@ Ideal para docencia en **Control de Procesos** o **Automatización Industrial**,
 
 ### Dinámica del tanque
 
-\[
-\frac{dh}{dt} = \frac{q_{\text{in}} - q_{\text{out}}}{A}, \qquad
-q_{\text{in}} = K_b \, i, \qquad
-q_{\text{out}} = \frac{h}{R}
-\]
+$$\frac{dh}{dt} = \frac{q_{\text{in}} - q_{\text{out}}}{A}, \qquad q_{\text{in}} = K_b \ i, \qquad q_{\text{out}} = \frac{h}{R}$$
 
 donde:  
-- \(h\): nivel del líquido \([m]\)  
-- \(i\): corriente que controla la bomba \([A]\)  
-- \(A\): área del tanque \([m^2]\)  
-- \(R\): constante de descarga \([s/m^2]\)  
-- \(K_b\): ganancia de la bomba \([m^3/(s·A)]\)
+- $$h$$: nivel del líquido $$[m]$$  
+- $$i$$: corriente que controla la bomba $$[A]$$  
+- $$A$$: área del tanque $$[m^2]$$  
+- $$R$$: constante de descarga $$[s/m^2]$$  
+- $$K_b$$: ganancia de la bomba $$[m^3/(s·A)]$$
 
-El nivel no puede ser negativo y la corriente se **satura** en el rango \([i_{\min},\, i_{\max}]\).
+El nivel no puede ser negativo y la corriente se **satura** en el rango $$[i_{\min}, i_{\max}]$$.
 
 ### Control PID
 
-\[
-u(t) = K_p \, e(t) + K_i \! \int e(t) \, dt + K_d \, \frac{de(t)}{dt}
-\]
+$$u(t) = K_p e(t) + K_i \int e(t) \ dt + K_d \frac{de(t)}{dt}$$
 
-donde \( e(t) = \text{SP} - h(t) \) es el error.
+
+donde $$e(t) = \text{SP} - h(t)$$ es el error.
 
 El controlador incluye **anti-windup** simple mediante *clamping* cuando se alcanza la saturación.
 
