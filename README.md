@@ -142,3 +142,12 @@ Para contribuir:
 4. Envía un **Pull Request** hacia la rama principal del repositorio original.
 
 Gracias por contribuir 💡
+
+## Licencia
+
+Este proyecto se distribuye bajo la licencia MIT.
+Puedes usarlo, modificarlo y redistribuirlo libremente, citando la fuente.
+
+## Créditos
+
+Proyecto desarrollado con fines educativos por **Rodrigo Martínez Campos**
