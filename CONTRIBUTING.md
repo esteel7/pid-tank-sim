@@ -105,7 +105,7 @@ Incluye una descripción clara (qué cambia, por qué, cómo probarlo).
 
 ## 🧪 Pruebas manuales mínimas
 
-Antes de enviar tu PR, verifica casos típicos:
+Antes de enviar tu Pull Request, verifica casos típicos:
 
 - Modo **Manual**: el slider de corriente mueve el nivel esperado.
 - Modo **PID**: el sistema converge razonablemente al setpoint (ajustando Kp/Ki/Kd).
