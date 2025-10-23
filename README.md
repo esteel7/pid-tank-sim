@@ -143,6 +143,8 @@ Para contribuir:
 3. Realiza tus cambios y verifica que `npm run dev` funcione.
 4. Envía un **Pull Request** hacia la rama principal del repositorio original.
 
+Para más información puedes revisar CONTRIBUTING.md.
+
 ---
 
 ## Licencia
