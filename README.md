@@ -142,7 +142,7 @@ Para contribuir:
 4. Envía un **Pull Request** hacia la rama principal del repositorio original.
 
 Gracias por contribuir 💡
-
+---
 ## Licencia
 
 Este proyecto se distribuye bajo la licencia MIT.
