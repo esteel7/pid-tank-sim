@@ -5,7 +5,7 @@ Funciona completamente en el navegador (React + TypeScript + Vite).
 Ideal para docencia en **Control de Procesos** o **Automatización Industrial**, con modos manual y automático, visualización en tiempo real y exportación de datos.
 
 **Demo (GitHub Pages):**  
-👉 https://esteel7.github.io/pid-tank-sim/
+👉 <https://esteel7.github.io/pid-tank-sim/>
 
 ---
 
@@ -29,7 +29,8 @@ Ideal para docencia en **Control de Procesos** o **Automatización Industrial**,
 
 $$\frac{dh}{dt} = \frac{q_{\text{in}} - q_{\text{out}}}{A}, \qquad q_{\text{in}} = K_b \ i, \qquad q_{\text{out}} = \frac{h}{R}$$
 
-donde:  
+donde:
+
 - $$h$$: nivel del líquido $$[m]$$  
 - $$i$$: corriente que controla la bomba $$[A]$$  
 - $$A$$: área del tanque $$[m^2]$$  
@@ -50,6 +51,7 @@ El controlador incluye **anti-windup** simple mediante *clamping* cuando se alca
 ---
 
 ## Estructura del proyecto
+
 ```graphql
 src/
   core/
@@ -70,6 +72,7 @@ main.tsx            # Punto de entrada
 styles.css          # Estilos base
 vite.config.ts      # Configuración del entorno
 ```
+
 ---
 
 ## Desarrollo local
@@ -80,22 +83,26 @@ vite.config.ts      # Configuración del entorno
 - npm ≥ 8
 
 ### Ejecución
+
 ```bash
 git clone https://github.com/esteel7/pid-tank-sim.git
 cd pid-tank-sim
 npm install
 npm run dev
 ```
+
 Abrir en el navegador:  
-👉 http://localhost:5173/
+👉 <http://localhost:5173/>
 
 ---
 
 ## Build de producción
+
 ```bash
 npm run build
 npm run preview
 ```
+
 Los archivos listos para publicar quedan en la carpeta `dist/`.
 
 ---
@@ -120,7 +127,7 @@ Cada vez que haces `git push` a `main`, se ejecutan los pasos:
 3. Guarda los cambios.
 
 El sitio quedará disponible en:  
-👉 https://esteel7.github.io/pid-tank-sim/
+👉 <https://esteel7.github.io/pid-tank-sim/>
 
 ---
 
@@ -135,7 +142,9 @@ Para contribuir:
 2. Clona tu fork y crea una rama nueva.
 3. Realiza tus cambios y verifica que `npm run dev` funcione.
 4. Envía un **Pull Request** hacia la rama principal del repositorio original.
+
 ---
+
 ## Licencia
 
 Este proyecto se distribuye bajo la licencia MIT.
