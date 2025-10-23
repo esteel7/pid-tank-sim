@@ -1,106 +1,144 @@
 # Simulador PID de Tanque (Web)
 
-Simulador interactivo de nivel en un estanque con **bomba** (caudal de entrada), **válvula de descarga** y **controlador PID**. Funciona 100% en el navegador (React + TypeScript + Vite). Ideal para docencia de control de procesos: modo manual (corriente de bomba) y modo automático (PID), gráficas en tiempo real y exportación CSV.
+Simulador interactivo de nivel en un estanque con **bomba** (caudal de entrada), **válvula de descarga** y **controlador PID**.  
+Funciona completamente en el navegador (React + TypeScript + Vite).  
+Ideal para docencia en **Control de Procesos** o **Automatización Industrial**, con modos manual y automático, visualización en tiempo real y exportación de datos.
 
-**Demo (GitHub Pages):** https://esteel7.github.io/pid-tank-sim/
+**Demo (GitHub Pages):**  
+👉 https://esteel7.github.io/pid-tank-sim/
 
 ---
 
 ## Características
 
-- Diagrama animado del **tanque** (nivel sube/baja) y estado **BOMBA ON/OFF**
-- **Dos modos de operación**:
-  - Manual: slider de **corriente** a la bomba
-  - Automático (PID): entradas para **Kp, Ki, Kd** y **setpoint**
-- Gráficas en tiempo real:
-  - **Señal de control** (corriente i(t))
-  - **Variable de proceso** (nivel h(t)) + setpoint
-- **Exportar CSV** (tiempo, corriente, nivel, etc.)
-- Arquitectura **modular**: lógica en `src/core/`, UI en `src/components/`, loop en `src/hooks/`
+- Diagrama animado del **tanque** (nivel sube y baja).
+- **Dos modos de operación:**
+  - **Manual:** el estudiante controla la corriente de la bomba mediante un *slider*.
+  - **PID automático:** el sistema ajusta la corriente para alcanzar el *setpoint*.
+- **Gráficas dinámicas:**
+  - Señal de control: corriente i(t)
+  - Variable de proceso: nivel h(t) con setpoint
+- **Exportación CSV:** descarga de registros (tiempo, corriente, nivel, error).
+- Arquitectura **modular y reutilizable** para implementar otras plantas.
 
 ---
 
 ## Modelo
 
-**Dinámica del nivel** (tanque de área \(A\), válvula de descarga con constante \(R\), bomba con constante \(K_b\)):
+### Dinámica del tanque
 
 \[
-\frac{dh}{dt} = \frac{q_{\text{in}} - q_{\text{out}}}{A},\qquad
-q_{\text{in}} = K_b \, i,\qquad
+\frac{dh}{dt} = \frac{q_{\text{in}} - q_{\text{out}}}{A}, \qquad
+q_{\text{in}} = K_b \, i, \qquad
 q_{\text{out}} = \frac{h}{R}
 \]
 
-donde:
-- \(h\) = nivel del líquido [m]  
-- \(i\) = corriente de la bomba [A] (con **saturación** \(i \in [i_{\min},\, i_{\max}]\))
+donde:  
+- \(h\): nivel del líquido \([m]\)  
+- \(i\): corriente que controla la bomba \([A]\)  
+- \(A\): área del tanque \([m^2]\)  
+- \(R\): constante de descarga \([s/m^2]\)  
+- \(K_b\): ganancia de la bomba \([m^3/(s·A)]\)
 
-**Controlador PID** (con anti-*windup* por *clamping*):
+El nivel no puede ser negativo y la corriente se **satura** en el rango \([i_{\min},\, i_{\max}]\).
+
+### Control PID
 
 \[
-u(t) = K_p\, e(t) + K_i \!\int e(t)\, dt + K_d\, \frac{de(t)}{dt},
-\qquad e(t) = \text{SP} - h(t)
+u(t) = K_p \, e(t) + K_i \! \int e(t) \, dt + K_d \, \frac{de(t)}{dt}
 \]
 
-En modo **PID**, la corriente aplicada es \(i(t) = \text{sat}(u(t))\).  
-La simulación es discreta con paso \(\Delta t\) y **Euler** semi-implícito para la planta.
+donde \( e(t) = \text{SP} - h(t) \) es el error.
+
+El controlador incluye **anti-windup** simple mediante *clamping* cuando se alcanza la saturación.
 
 ---
 
-## Estructura
-```
+## Estructura del proyecto
+
 src/
-  core/         # lógica independiente de UI (reutilizable)
-  components/   # UI react (tanque, charts, panel)
-  hooks/        # orquestación/loop de simulación
-  App.tsx       # composición de la página
-```
+  core/
+    types.ts        # Tipos e interfaces comunes
+    pid.ts          # Controlador PID
+    plant.ts        # Modelo dinámico del tanque
+    simulator.ts    # Orquestador general
+    csv.ts          # Exportación de datos
+  components/
+    Tank.tsx        # SVG del tanque y la bomba
+    Charts.tsx      # Gráficas i(t) y h(t)
+    ControlPanel.tsx# Controles y parámetros PID
+    Toolbar.tsx     # Encabezado del simulador
+  hooks/
+    useSimulation.ts# Lógica del bucle de simulación
+App.tsx             # Composición principal de la UI
+main.tsx            # Punto de entrada
+styles.css          # Estilos base
+vite.config.ts      # Configuración del entorno
 
-## Requerimientos
-- Node.js 18+
+---
 
-## Desarrollo
+## Desarrollo local
+
+### Requisitos
+
+- Node.js ≥ 18  
+- npm ≥ 8
+
+### Ejecución
 ```bash
-# 1) Crear proyecto (si partes desde cero)
-npm create vite@latest pid-tank-sim -- --template react-ts
+git clone https://github.com/esteel7/pid-tank-sim.git
 cd pid-tank-sim
-
-# 2) Reemplaza/añade los archivos con los de este repo
-# 3) Instalar dependencias
 npm install
-
-# 4) Ejecutar en modo dev
 npm run dev
 ```
+Abrir en el navegador:  
+👉 http://localhost:5173/
 
-## Build
-```bash
+---
+
+## Build de producción
+
 npm run build
 npm run preview
-```
+
+Los archivos listos para publicar quedan en la carpeta `dist/`.
+
+---
 
 ## Despliegue en GitHub Pages
-1. Asegura que `vite.config.ts` tenga `base: "/<nombre-repo>/"`.
-2. Activa GitHub Pages en **Settings → Pages → Deploy from a branch** y selecciona **gh-pages** al menos una vez, o usa el script:
-```bash
-npm run build
-npm run deploy  # publica /dist a una rama gh-pages
-```
-3. Sube el proyecto al repositorio y verifica la URL `https://<tu-usuario>.github.io/<nombre-repo>/`.
 
-## Reutilización para otras plantas
-- Implementa tu nueva dinámica en `src/core/plant_X.ts` exportando una clase con `deriv()` y `step()`.
-- Mantén `Simulator` tal cual (o extiéndelo) y cambia únicamente dónde creas la `plant` en `useSimulation()`.
-- Las gráficas y el panel funcionan con cualquier planta que exponga `h` (o adapta los nombres creando más series).
+### Despliegue automático con GitHub Actions ✅
 
-## Licencia
-MIT.
+Este repositorio incluye el flujo `.github/workflows/deploy.yml`.  
+Cada vez que haces `git push` a `main`, se ejecutan los pasos:
 
-## Autodespliegue con GitHub Actions
-Con el workflow `.github/workflows/deploy.yml`, cada **push a `main`** construye automáticamente el sitio y publica `dist/` en la rama `gh-pages`.
+1. Instalar dependencias  
+2. Compilar (`npm run build`)  
+3. Publicar `dist/` en la rama **`gh-pages`**
 
-### Pasos (primera vez)
-1. Sube el archivo del workflow y haz `push` a `main`.
-2. En **Settings → Pages** selecciona **Deploy from a branch** y la rama **gh-pages** (carpeta `/`).
-3. Verifica la URL: `https://<tu-usuario>.github.io/<nombre-repo>/`.
+### Configuración inicial
 
-> Asegúrate de que `vite.config.ts` tenga `base: "/<nombre-repo>/"`.
+1. En GitHub → **Settings → Pages**  
+2. En **Source**, selecciona:
+   - “Deploy from a branch”
+   - **Branch:** `gh-pages` y carpeta `/ (root)`
+3. Guarda los cambios.
+
+El sitio quedará disponible en:  
+👉 https://esteel7.github.io/pid-tank-sim/
+
+---
+
+## Contribuciones
+
+Este proyecto está abierto a colaboraciones académicas, mejoras y nuevas simulaciones.  
+Cualquier persona puede proponer **issues** o enviar **pull requests**.
+
+Para contribuir:
+
+1. Crea un **fork** del proyecto.
+2. Clona tu fork y crea una rama nueva.
+3. Realiza tus cambios y verifica que `npm run dev` funcione.
+4. Envía un **Pull Request** hacia la rama principal del repositorio original.
+
+Gracias por contribuir 💡
