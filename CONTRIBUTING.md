@@ -4,7 +4,7 @@
 
 ---
 
-## 🧭 Principios
+## Principios
 
 - **Docencia primero**: claridad del modelo y del código por sobre la micro-optimización.
 - **Modularidad**: lógica de simulación en `src/core/`, UI en `src/components/`, orquestación en `src/hooks/`.
@@ -12,7 +12,7 @@
 
 ---
 
-## 🐞 Reportar errores o sugerir mejoras (Issues)
+## Reportar errores 🐞 o sugerir mejoras (Issues)
 
 1. Ve a **Issues**: https://github.com/esteel7/pid-tank-sim/issues
 2. Crea un **New issue** con un título descriptivo.
@@ -26,7 +26,7 @@
 
 ---
 
-## 🔧 Flujo para contribuir con código (Pull Requests)
+## Flujo para contribuir con código (Pull Requests)
 
 ### 1) Haz un fork y clona tu copia
 
@@ -83,7 +83,7 @@ Incluye una descripción clara (qué cambia, por qué, cómo probarlo).
 
 ---
 
-## ✅ Checklist para PRs
+##  Checklist para PRs
 
 - [ ] El proyecto corre en local (`npm run dev`) sin errores.
 - [ ] Los cambios están acotados y descritos en el PR.
@@ -93,7 +93,7 @@ Incluye una descripción clara (qué cambia, por qué, cómo probarlo).
 
 ---
 
-## 🧱 Estilo y organización del código
+##  Estilo y organización del código
 
 - **TypeScript estricto** y tipos explícitos en `core`.
 - Componentes **React funcionales** con hooks.
@@ -103,7 +103,7 @@ Incluye una descripción clara (qué cambia, por qué, cómo probarlo).
 
 ---
 
-## 🧪 Pruebas manuales mínimas
+## Pruebas manuales mínimas
 
 Antes de enviar tu Pull Request, verifica casos típicos:
 
@@ -115,13 +115,13 @@ Antes de enviar tu Pull Request, verifica casos típicos:
 
 ---
 
-## 🚀 Lanzamientos (Releases) — opcional
+## Lanzamientos (Releases) — opcional
 
 Si mantienes un cambio “estable” para un curso/semestre, puedes proponer un **tag** y **Release** con un pequeño changelog. El despliegue en GitHub Pages es automático al hacer push a `main`.
 
 ---
 
-## 📄 Licencia y créditos
+## Licencia y créditos
 
 El proyecto usa **MIT**. Si tu aporte incluye código de terceros, deja la atribución correspondiente. Si usas este simulador en docencia, considera citar el repositorio.
 
