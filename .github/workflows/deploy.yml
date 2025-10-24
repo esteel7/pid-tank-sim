@@ -36,30 +36,30 @@ jobs:
     # --------------------------------------------------------
     steps:
 
-      # 1️⃣ Clonar el repositorio
+      # 1) Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
         # Descarga el código fuente del repositorio actual.
 
 
-      # 2️⃣ Instalar Node.js (versión 18)
+      # 2) Instalar Node.js (versión 18)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
         # Prepara el entorno con la versión correcta de Node.js.
 
-      # 3️⃣ Instalar dependencias
+      # 3) Instalar dependencias
       - name: Install dependencies
         run: npm ci
         # Instala los paquetes definidos en package-lock.json.
 
-      # 4️⃣ Construir el sitio
+      # 4) Construir el sitio
       - name: Build
         run: npm run build
         # Ejecuta "vite build" para generar los archivos finales en /dist.
 
-      # 5️⃣ Desplegar en GitHub Pages
+      # 5) Desplegar en GitHub Pages
       - name: Deploy to GitHub Pages (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v4
         with:
