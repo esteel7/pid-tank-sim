@@ -124,5 +124,3 @@ Si mantienes un cambio “estable” para un curso/semestre, puedes proponer un 
 ## Licencia y créditos
 
 El proyecto usa **MIT**. Si tu aporte incluye código de terceros, deja la atribución correspondiente. Si usas este simulador en docencia, considera citar el repositorio.
-
----
