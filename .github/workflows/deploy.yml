@@ -1,32 +1,75 @@
-name: Deploy to GitHub Pages
+# ============================================================
+#  Flujo de despliegue automático a GitHub Pages
+#  Proyecto: Simulador PID de Tanque
+#  Autor: Rodrigo Martínez (@esteel7)
+#  Descripción:
+#    Este flujo de trabajo (workflow) se ejecuta automáticamente
+#    cada vez que haces un "push" a la rama principal (main).
+#    Su objetivo es compilar el proyecto con Vite y desplegarlo
+#    en GitHub Pages, usando la rama "gh-pages".
+# ============================================================
 
+name: Deploy to GitHub Pages # Nombre visible en la pestaña "Actions"
+
+# ------------------------------------------------------------
+# EVENTO QUE DISPARA EL FLUJO
+# ------------------------------------------------------------
 on:
   push:
     branches: [ main ]
 
+# ------------------------------------------------------------
+# PERMISOS REQUERIDOS
+# ------------------------------------------------------------
 permissions:
   contents: write   # necesario para pushear a gh-pages
 
+# ------------------------------------------------------------
+# DEFINICIÓN DE LOS TRABAJOS (JOBS)
+# ------------------------------------------------------------  
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # La máquina virtual donde se ejecuta el flujo
+    
+    # --------------------------------------------------------
+    # PASOS A EJECUTAR
+    # --------------------------------------------------------
     steps:
+
+      # 1️⃣ Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
+        # Descarga el código fuente del repositorio actual.
 
+
+      # 2️⃣ Instalar Node.js (versión 18)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
+        # Prepara el entorno con la versión correcta de Node.js.
 
+      # 3️⃣ Instalar dependencias
       - name: Install dependencies
         run: npm ci
+        # Instala los paquetes definidos en package-lock.json.
 
+      # 4️⃣ Construir el sitio
       - name: Build
         run: npm run build
+        # Ejecuta "vite build" para generar los archivos finales en /dist.
 
+      # 5️⃣ Desplegar en GitHub Pages
       - name: Deploy to GitHub Pages (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+        # Publica el contenido del directorio ./dist en la rama gh-pages.
+        # GitHub Pages servirá el sitio desde esa rama.
+
+# ============================================================
+#    RESULTADO FINAL:
+#    El sitio web se actualiza automáticamente en:
+#    https://esteel7.github.io/pid-tank-sim/
+# ============================================================
